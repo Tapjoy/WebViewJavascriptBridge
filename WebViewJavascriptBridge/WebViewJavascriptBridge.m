@@ -174,19 +174,11 @@ static bool logging = false;
 }
 
 - (NSString *)_serializeMessage:(NSDictionary *)message {
-    #ifdef USE_JSONKIT
-        return [message JSONString];
-    #else
-        return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:message options:0 error:nil] encoding:NSUTF8StringEncoding];
-    #endif
+  return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:message options:0 error:nil] encoding:NSUTF8StringEncoding];
 }
 
 - (NSDictionary *)_deserializeMessageJSON:(NSString *)messageJSON {
-    #ifdef USE_JSONKIT
-        return [messageJSON objectFromJSONString];
-    #else
-        return [NSJSONSerialization JSONObjectWithData:[messageJSON dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    #endif
+  return [NSJSONSerialization JSONObjectWithData:[messageJSON dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
 }
 
 - (void)_log:(NSString *)action json:(NSString *)json {
